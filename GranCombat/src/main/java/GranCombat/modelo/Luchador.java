@@ -28,4 +28,10 @@ public class Luchador {
 	public int ProbabilitatAtacar(int destreça ,int forza,int constitucio){
 		return destreça+forza+constitucio;
 	}
+	
+	public int ProbabilitatEsquivar(int destreça){
+		return destreça*3;
+	}
+
+	
 }
