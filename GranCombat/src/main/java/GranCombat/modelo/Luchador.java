@@ -1,36 +1,44 @@
 package GranCombat.modelo;
 
 public class Luchador {
-	String nomArtistic;
+	public String nomArtistic;
 	int forz;
 	int cons;
 	int mid;
 	int des;
 	int per;
+	String escuela;
 	
-	public Luchador(String nombre, int forz,int cons,int mid,int des, int per) {
+	public Luchador(String nombre,String escuela, int forz,int cons,int mid,int des, int per) {
 		nomArtistic = nombre;
 		this.forz = forz;
 		this.cons = cons;
 		this.mid = mid;
 		this.des = des;
 		this.per = per;
+		this.escuela = escuela;
 	}
 	
-	public int puntsResistencia(int constitucio ,int mida){
-		return constitucio+mida;
+	public int puntsResistencia(){
+		return cons+mid;
 	}
 	
-	public int puntsDany(int forza ,int mida){
-		return forza+mida;
+	public int puntsDany(){
+		return forz+mid;
 	}
 	
-	public int ProbabilitatAtacar(int destreça ,int forza,int constitucio){
-		return destreça+forza+constitucio;
+	public int ProbabilitatAtacar(){
+		return des+forz+cons;
 	}
 	
-	public int ProbabilitatEsquivar(int destreça){
-		return destreça*3;
+	public int ProbabilitatEsquivar(){
+		return des*3;
+	}
+	
+	public String toString() {
+		return "Luchador "+nomArtistic+escuela+"\nFUE: "+forz+" CON: "+cons+" TAM: "+mid+" DES: "+des+" PER: "+per+
+				"\nPR: "+puntsResistencia()+" PD: "+puntsDany()+" PA(%): "+ProbabilitatAtacar()+
+				" PE(%): "+ProbabilitatEsquivar();
 	}
 
 	
