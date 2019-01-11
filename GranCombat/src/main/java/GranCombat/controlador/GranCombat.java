@@ -23,37 +23,69 @@ public class GranCombat {
 		generarLuchador (luchadores, 1,consola);
 		Luchador luchador1 = luchadores[0];
 		Luchador luchador2 = luchadores[1];
-		consola.escribirSL(luchadores[0].toString()+"\n");
-		consola.escribirSL(luchadores[1].toString());
 		
-		consola.escribirSL("Que empiece el combate!!!\n");
-		int vidaLuchador1 = luchador1.puntsResistencia();
-		int vidaLuchador2 = luchador2.puntsResistencia();
+		
+		Boolean respuesta = true;
+
+		do {
+			consola.escribirSL("Que empiece el combate!!!\n");
+			int vidaLuchador1 = luchador1.puntsResistencia();
+			int vidaLuchador2 = luchador2.puntsResistencia();
+			consola.escribirSL(luchadores[0].toString()+"\n");
+			consola.escribirSL(luchadores[1].toString());
+			
+		do {
+			
+			if (vidaLuchador1 > 0) {
+				vidaLuchador2 = turno(consola, luchador1, luchador2, vidaLuchador2);
+			}
+			if (vidaLuchador2 > 0) {
+				vidaLuchador1 = turno(consola, luchador2, luchador1, vidaLuchador1);
+			}
+		}while (vidaLuchador1 > 0 && vidaLuchador2 > 0);
+		
+		String continuar = consola.leerString("\nQuieres desafiar al ganador con otro contrincante? Y/N");
+		if (continuar.equals("Y") || continuar.equals("y")) {
+			if (vidaLuchador1 == 0) {
+				generarLuchador (luchadores, 0,consola);
+				luchador1 = luchadores[0];
+			}else {
+				generarLuchador (luchadores, 1,consola);
+				luchador2 = luchadores[1];
+			}
+		}else {
+			respuesta = false;
+			System.exit(0);
+		}
+		
+		}while (respuesta == true);		
+	}
+
+	private static int turno(Consola consola, Luchador atacante, Luchador defensor, int vidaDefensor) {
 		int aleatorioAtaque = Resultado.aleatorio();
 		int aleatiorioEsquiva = Resultado.aleatorio();
-		int dany = (Resultado.ataque(luchador1.ProbabilitatAtacar(), luchador1.puntsDany(),aleatorioAtaque ));
-		int esquiva = (Resultado.esquiva(luchador2.ProbabilitatEsquivar(),vidaLuchador2, dany, aleatiorioEsquiva));
+		int dany = (Resultado.ataque(atacante.ProbabilitatAtacar(), atacante.puntsDany(),aleatorioAtaque ));
+		int esquiva = (Resultado.esquiva(defensor.ProbabilitatEsquivar(),vidaDefensor, dany, aleatiorioEsquiva));
 		if(dany!=0) {
-			consola.escribirSL(luchador1.nomArtistic+" ataca con un"+aleatorioAtaque+"% y acierta el golpe");
-			if((Resultado.esquiva(luchador2.ProbabilitatEsquivar(), vidaLuchador2, dany, aleatiorioEsquiva)!=vidaLuchador2)) {
-				consola.escribirSL(luchador2.nomArtistic+" esquiva con un"+aleatiorioEsquiva+"% y falla la esquiva");
-				vidaLuchador2 = esquiva;
-				if(vidaLuchador2 !=0) {
-					consola.escribirSL(luchador2.nomArtistic+" recibe un golpe que le baja la resistencia a "+vidaLuchador2);
+			consola.escribirSL(atacante.nomArtistic+" ataca con un "+aleatorioAtaque+"% y acierta el golpe");
+			if((Resultado.esquiva(defensor.ProbabilitatEsquivar(), vidaDefensor, dany, aleatiorioEsquiva)!=vidaDefensor)) {
+				consola.escribirSL(defensor.nomArtistic+" esquiva con un "+aleatiorioEsquiva+"% y falla la esquiva");
+				vidaDefensor = esquiva;
+				if(vidaDefensor !=0) {
+					consola.escribirSL(defensor.nomArtistic+" recibe un golpe que le baja la resistencia a "+vidaDefensor);
 				}
 				else {
-					consola.escribirSL(luchador2.nomArtistic+" recibe su ultimo golpe y cae vencido");
-					//break;
+					consola.escribirSL(defensor.nomArtistic+" recibe su ultimo golpe y cae vencido");
+					consola.escribirSL("\n EL LUCHADOR "+atacante.nomArtistic+" GANA EL COMBATE!!");
 				}
 				}
 				
 		}
 		else {
-			consola.escribirSL(luchador1.nomArtistic+" ataca con un"+aleatorioAtaque+"% y falla el golpe");
+			consola.escribirSL(atacante.nomArtistic+" ataca con un "+aleatorioAtaque+"% y falla el golpe");
 			
 		}
-		
-		
+		return vidaDefensor;
 	}
 
 	private static void generarLuchador(Luchador[] luchadores, int contLuchador,Consola consola) {
