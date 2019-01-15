@@ -35,6 +35,10 @@ public class Luchador {
 		return des*3;
 	}
 	
+	public void subirNivel() {
+		per+=1;
+	}
+	
 	public String toString() {
 		return "Luchador "+nomArtistic+escuela+"\nFUE: "+forz+" CON: "+cons+" TAM: "+mid+" DES: "+des+" PER: "+per+
 				"\nPR: "+puntsResistencia()+" PD: "+puntsDany()+" PA(%): "+ProbabilitatAtacar()+
