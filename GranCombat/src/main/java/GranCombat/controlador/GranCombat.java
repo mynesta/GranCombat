@@ -8,6 +8,8 @@ import GranCombat.modelo.LuchadorHoiPoi;
 import GranCombat.modelo.LuchadorNamac;
 import GranCombat.modelo.Resultado;
 
+//prueba juanas
+
 public class GranCombat {
 	public static void main(String args[]) {
 		Consola consola = Consola.getSingletonInstance();
