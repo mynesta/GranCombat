@@ -24,7 +24,7 @@ public class Luchador {
 	}
 	
 	public int puntsDany(){
-		return forz+mid;
+		return (forz+mid)/4;
 	}
 	
 	public int ProbabilitatAtacar(){

@@ -31,6 +31,7 @@ public class GranCombat {
 			int vidaLuchador2 = luchador2.puntsResistencia();
 			consola.escribirSL(luchadores[0].toString() + "\n");
 			consola.escribirSL(luchadores[1].toString());
+			consola.escribirSL("");
 
 			do {
 
@@ -89,9 +90,9 @@ public class GranCombat {
 		return vidaDefensor;
 	}
 
-	private static void generarLuchador(Luchador[] luchadores, int contLuchador,Consola consola) {
+	private static void generarLuchador(Luchador[] luchadores, int contLuchador, Consola consola) {
 		String nombre = consola.leerString("Nombre del luchador: ");
-		
+
 		int fue = 0;
 		int con = 0;
 		int tam = 0;
@@ -99,68 +100,85 @@ public class GranCombat {
 		int per = 0;
 		int sumastats = 61;
 		Boolean stats = true;
-		
+
 		while (sumastats > 60 || stats == true) {
 			try {
-			fue = Integer.parseInt(consola.leerString("FUE:"));
-			con = Integer.parseInt(consola.leerString("CON:"));
-			tam = Integer.parseInt(consola.leerString("TAM:"));
-			des = Integer.parseInt(consola.leerString("DES:"));
-			per = Integer.parseInt(consola.leerString("PER:"));
-			
-			sumastats = fue+con+tam+des+per;
-			
-			stats = comprobarStats(fue, con, tam, des, per, consola);
-			if (sumastats > 60) {
-				consola.escribirSL("La suma total de los Stats no debe ser superior a 60!");
-			}
-			
-			} catch(NumberFormatException e) {
+				fue = Integer.parseInt(consola.leerString("FUE:"));
+				con = Integer.parseInt(consola.leerString("CON:"));
+				tam = Integer.parseInt(consola.leerString("TAM:"));
+				des = Integer.parseInt(consola.leerString("DES:"));
+				per = Integer.parseInt(consola.leerString("PER:"));
+
+				sumastats = fue + con + tam + des + per;
+
+				stats = comprobarStats(fue, con, tam, des, per, consola);
+				if (sumastats > 60) {
+					consola.escribirSL("La suma total de los Stats no debe ser superior a 60!");
+				}
+
+			} catch (NumberFormatException e) {
 				consola.escribirSL("No se pueden introducir letras en los atributos!");
 			}
 		}
-		
-		consola.escribirSL("\nEscuela: ");
-		consola.escribirSL("\t0) Follet Tortuga");
-		consola.escribirSL("\t1) Corb Genial");
-		consola.escribirSL("\t2) Hoi-Poi");
-		consola.escribirSL("\t3) Namac");
-		consola.escribirSL("\t4) Ninguna");
-		String escuela = consola.leerString("");
-		switch(Integer.parseInt(escuela)) {
-			case 0:
-				LuchadorFolletTortuga luchadorTortuga = new LuchadorFolletTortuga(nombre,", escola del Follet Tortuga",
-						fue, con, tam, des, per);
-				luchadores[contLuchador] = luchadorTortuga;
-				break;
-			case 1:
-				LuchadorCorbGenial luchadorCorb = new LuchadorCorbGenial(nombre,", escola del Corb Genial",
-						fue, con, tam, des, per);
-				luchadores[contLuchador] = luchadorCorb;
-				break;
-			case 2:
-				LuchadorHoiPoi luchadorHoiPoi = new LuchadorHoiPoi(nombre,", escola HoiPoi",
-						fue, con, tam, des, per);
-				luchadores[contLuchador] = luchadorHoiPoi;
-				break;
-			case 3:
-				LuchadorNamac luchadorNamac = new LuchadorNamac(nombre,", escola Namac",
-						fue, con, tam, des, per);
-				luchadores[contLuchador] = luchadorNamac;
-				break;
-			case 4:
-				Luchador luchador = new Luchador(nombre,"",
-						fue, con, tam, des, per);
-				luchadores[contLuchador] = luchador;
-				break;
-			
+
+		Boolean comprobacion = false;
+
+		while (comprobacion == false) {
+			try {
+				consola.escribirSL("\nEscuela: ");
+				consola.escribirSL("\t0) Follet Tortuga");
+				consola.escribirSL("\t1) Corb Genial");
+				consola.escribirSL("\t2) Hoi-Poi");
+				consola.escribirSL("\t3) Namac");
+				consola.escribirSL("\t4) Ninguna");
+				int escuela = Integer.parseInt(consola.leerString(""));
+				switch (escuela) {
+				case 0:
+					LuchadorFolletTortuga luchadorTortuga = new LuchadorFolletTortuga(nombre,
+							", escola del Follet Tortuga", fue, con, tam, des, per);
+					luchadores[contLuchador] = luchadorTortuga;
+					break;
+				case 1:
+					LuchadorCorbGenial luchadorCorb = new LuchadorCorbGenial(nombre, ", escola del Corb Genial", fue,
+							con, tam, des, per);
+					luchadores[contLuchador] = luchadorCorb;
+					break;
+				case 2:
+					LuchadorHoiPoi luchadorHoiPoi = new LuchadorHoiPoi(nombre, ", escola HoiPoi", fue, con, tam, des,
+							per);
+					luchadores[contLuchador] = luchadorHoiPoi;
+					break;
+				case 3:
+					LuchadorNamac luchadorNamac = new LuchadorNamac(nombre, ", escola Namac", fue, con, tam, des, per);
+					luchadores[contLuchador] = luchadorNamac;
+					break;
+				case 4:
+					Luchador luchador = new Luchador(nombre, "", fue, con, tam, des, per);
+					luchadores[contLuchador] = luchador;
+					break;
+				}
+				
+				if (escuela <= 4 && escuela >= 0) {
+					comprobacion = true;
+				}else {
+					comprobacion = false;
+					consola.escribirSL("Debes seleccionar una escuela entre el 0 y el 4!");
+				}
+				
+
+			} catch (NumberFormatException e) {
+				consola.escribirSL("No se pueden introducir letras escogiendo las escuelas!");
+				comprobacion = false;
+			}
+
 		}
+
 	}
 
 	static public Boolean comprobarStats(int fue, int con, int tam, int des, int per, Consola consola) {
-		int[] atributos = {fue, con, tam, des, per};
-		
-		for (int i=0; i < atributos.length; i++) {
+		int[] atributos = { fue, con, tam, des, per };
+
+		for (int i = 0; i < atributos.length; i++) {
 			if (atributos[i] < 3 || atributos[i] > 18) {
 				consola.escribirSL("Los atributos deben estar entre 3 y 18!");
 				return true;
